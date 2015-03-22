@@ -1,0 +1,4 @@
+drop database happy;
+create database happy;
+use happy;
+\. db_happy.sql
