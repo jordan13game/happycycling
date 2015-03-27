@@ -134,7 +134,8 @@ struct gw_msg_def
         string datetime;
         string content;
         string nickname;
-        JSON6(req_recv_message_t, type, userid, groupid, datetime, content, nickname);
+        string head;
+        JSON7(req_recv_message_t, type, userid, groupid, datetime, content, nickname, head);
     };
 
     struct ret_recv_message_t : public jcmd_t<114>

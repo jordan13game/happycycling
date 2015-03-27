@@ -39,6 +39,7 @@ void gw_chat_t::post(uint32_t userid, gw_msg_def::req_send_message_t& jpk_)
             db_Account_ext_t::select_uid(msg.userid, t);
             acc.init(*t.get_row_at(0));
             msg.nickname = std::move(acc.nickname());
+            msg.head = std::move(acc.head());
 
             string tmp;
             msg >> tmp;
@@ -72,6 +73,7 @@ void gw_chat_t::post(uint32_t userid, gw_msg_def::req_send_message_t& jpk_)
             db_Account_ext_t::select_uid(msg.userid, t);
             acc.init(*t.get_row_at(0));
             msg.nickname = std::move(acc.nickname());
+            msg.head = std::move(acc.head());
 
             string tmp;
             msg >> tmp;

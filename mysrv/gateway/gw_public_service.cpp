@@ -150,6 +150,7 @@ void gw_public_handler_t::on_login(sp_rpc_conn_t conn_, gw_msg_def::req_login_t&
             return ;
         }
 
+        logdebug((LOG, "login session:%llu", ret.session));
         ret.code = SUCCESS;
         async_call(conn_, ret);
         gw_chat.check_message(ret.userid);
@@ -164,13 +165,15 @@ void gw_public_handler_t::on_login(sp_rpc_conn_t conn_, gw_msg_def::req_login_t&
 void gw_public_handler_t::on_req_heartbeat(sp_rpc_conn_t conn_, gw_msg_def::req_heartbeat_t& jpk_)
 {
     remote_info_t* info = conn_->get_data<remote_info_t>();
+    logdebug((LOG, "on_req_heartbeat begin"));
     if (info == NULL || info->remote_id != jpk_.session)
     {
-        logerror((LOG, "on_nt_heartbeat...unkonw conn! session:%lu", jpk_.session));
+        logerror((LOG, "on_nt_heartbeat...unkonw conn! session:%lu conn_id:%lu", jpk_.session, info->remote_id));
         conn_->close(RPC_SHUTDOWN);
         return ;
     }
 
+    logdebug((LOG, "on_req_heartbeat end"));
     gw_msg_def::ret_heartbeat_t ret;
     ret.code = SUCCESS;
     async_call(conn_, ret);
